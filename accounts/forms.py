@@ -13,6 +13,6 @@ class CustomUserChangeForm(UserChangeForm):
         model = get_user_model()
         fields = ('email', 'username')
 
-class TT:
+class TTT:
     pass 
         
