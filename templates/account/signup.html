@@ -1,0 +1,32 @@
+{%  extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block content %}
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-6 mx-auto'>
+            <form class='form-margin' action="" method='post'>
+                <h1 class='text-center'>Зарегистрироваться</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                        <div class='my-2'>
+                            {{ field|as_crispy_field }}
+                        </div>
+                        {% if field.help_text %}
+                            <span class='helptext'>
+                                {{ field.help_text }}
+                            </span>
+                        {% endif %}
+                {% endfor %}
+                <div class='col-md-3 mx-auto'>
+                    <button class='mybtn btn btn-primary col-12' type='submit'>Готово</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

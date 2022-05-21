@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% block title %}
+{{ block.super }} - Log In
+{% endblock title %}
+
+{% block content %}
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-6 mx-auto'>
+                <form class='form-margin' action="" method='post'>
+                    <h1 class='text-center'>Войти</h1>
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-block alert-danger">
+                            {% if form_error_title %}<h4 
+                            class="alert-heading">
+                            {{ form_error_title }}</h4>{% endif %}
+                            <ul class="m-0">
+                                {{ form.non_field_errors|unordered_list }}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {% for field in form %}
+                            <div class='mt-2'>
+                                {{ field|as_crispy_field }}
+                            </div>
+                            {% if field.help_text %}
+                                <span class='helptext'>
+                                    {{ field.help_text }}
+                                </span>
+                            {% endif %}
+                    {% endfor %}
+                    <div class='col-md-3 mx-auto mt-3'>
+                        <button class='mybtn btn btn-primary col-12 '
+                                type='submit'>Войти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

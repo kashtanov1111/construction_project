@@ -1,30 +1,24 @@
 <!doctype html>
+{% url 'home' as home_url %}
+{% url 'about' as about_url %}
+{% url 'account_change_password' as change_password_url %}
+{% url 'account_logout' as logout_url %}
 
 <html>
     <head>
         <title>
-            {% block title %}Wostart{% endblock title %}
+            {% block title %}Закупка{% endblock title %}
         </title>
         {% include 'base/head.html' %}
         {% block head %}
         {% endblock head %}
     </head>
-    <body class="d-flex flex-column min-vh-100">
+    <body>
         {% include 'base/navbar.html' %}
         {% include 'base/before_block_content.html' %}
             {% include 'base/messages.html' %}
             {% block content %}
             {% endblock content %}
         {% include 'base/before_closing_body.html' %}
-        <footer class="footer mt-auto bg-light py-3">
-            <div class="container">
-                <div class='row justify-content-between mx-2'>
-                    <p class="col-md-auto col-auto my-0 mx-md-auto">Wostart &copy; 2022 Company, Inc</p>
-                    <p class="col-md-auto col-1 my-0 mx-md-auto"><a href="https://twitter.com/wostart_com"><i class="bi bi-twitter"></i></a></p>
-                    <p class='col-md-auto my-0 mx-md-auto'>Email: 1wostart@gmail.com</p>
-                </div>
-            </div>
-        </footer>
-    {% tz_detect %}
     </body>
-</html>
+    </html>
