@@ -24,7 +24,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('', views.HomePageView.as_view(), name='home'),
+    path('claims/', include('claims.urls')),
+    path('', views.home_view, name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

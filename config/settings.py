@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from tkinter import N
 from environs import Env
 
 env = Env()
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 
     #Local
     'accounts',
+    'claims',
 
     #Third-party
     'crispy_forms',
@@ -219,11 +221,12 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 # SOCIALACCOUNT_SIGNUP_ON_GET=True
 
 
 # email settings
-if env('EMAIL_BACKEND', default=False):
+if env('EMAIL_BACKEND', default=True):
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

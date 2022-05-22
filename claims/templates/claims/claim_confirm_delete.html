@@ -1,0 +1,26 @@
+{% extends 'claims/base_claims.html' %}
+
+{% block title %}
+{{ block.super }} - Удалить заявку
+{% endblock title %}
+
+{% block content %}
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-6 text-center mx-auto'>
+                <form method='post'>
+                    {% csrf_token %}
+                    <p>Вы уверены, что хотите удалить заявку
+                        <b>{{ object }}</b>?
+                    </p>
+                    <input type="submit" class='btn btn-danger' 
+                        value='Подтвердить'>
+                    <a class='btn btn-outline-dark'
+                        href="{{ next }}">
+                        Вернуться
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
