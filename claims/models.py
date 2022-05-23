@@ -31,6 +31,10 @@ class Claim(models.Model):
         return reverse('claims:claim_delete', 
                         kwargs={'slug': self.slug})
 
+    def get_update_url(self):
+        return reverse('claims:claim_update', 
+                        kwargs={'slug': self.slug})
+
     def save(self, *args, **kwargs):
         russian_slugified_title = translit(self.title, language_code='ru', reversed=True)
         slugified_title = slugify(russian_slugified_title[:40])
