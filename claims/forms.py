@@ -15,10 +15,20 @@ class DeadlineCleanMixin:
         return deadline
 
 class ClaimForm(DeadlineCleanMixin, forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['deadline'].label = 'Срок Исполнения'
+        self.fields['title'].label = 'Название'
+        self.fields['ammount'].label = 'Количество'
+        self.fields['image'].label = 'Фотография'
+        self.fields['comment'].label = 'Комментарий'
     
     class Meta:
         model = Claim
         fields = ('title', 'ammount', 'deadline', 'comment', 'image')
         widgets = {
-            'deadline': forms.DateTimeInput(format='%d/%m/%Y %H:%M', attrs={'type': 'datetime-local', 'class':'form-control'}),
-        }
+            'deadline': forms.DateTimeInput(attrs={'type': 'datetime'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        },
+

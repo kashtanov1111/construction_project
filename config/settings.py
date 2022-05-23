@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'debug_toolbar',
     'storages',
+    'datetimewidget',
 ]
 
 MIDDLEWARE = [
