@@ -22,7 +22,7 @@ from . import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin-20009050/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('claims/', include('claims.urls')),
     path('tz_detect/', include('tz_detect.urls')),
