@@ -1,8 +1,10 @@
 <!doctype html>
+{% load tz_detect %}
 {% url 'home' as home_url %}
 {% url 'about' as about_url %}
 {% url 'account_change_password' as change_password_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'claims:claim_create' as claim_create_url %}
 
 <html>
     <head>
@@ -20,5 +22,6 @@
             {% block content %}
             {% endblock content %}
         {% include 'base/before_closing_body.html' %}
+        {% tz_detect %}
     </body>
     </html>

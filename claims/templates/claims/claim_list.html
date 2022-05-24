@@ -1,5 +1,6 @@
 {% extends 'claims/base_claims.html' %}
 {% load static %}
+{% load smooth_timedelta %}
 
 {% block title %}
 {{ block.super }} - Заявки
@@ -24,7 +25,10 @@
                                     Создано: {{ claim.created|date:'j/m/Y H:i' }}
                                 </h6>
                                 <h6 class="card-subtitle mb-2">
-                                    Срок исполнения: {{ claim.deadline|date:'j/m/Y H:i' }}
+                                    Истекает: {{ claim.deadline|date:'j/m/Y H:i' }}
+                                </h6>
+                                <h6 class="card-subtitle mb-2">
+                                    Осталось: {{ claim.claim_ends|smooth_timedelta }}
                                 </h6>
                                 <h6 class="card-subtitle mb-2">
                                     Количество: {{ claim.ammount}}

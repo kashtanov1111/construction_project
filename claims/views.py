@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DeleteView, UpdateView
+from django.views.generic import (
+    ListView, DeleteView, UpdateView, CreateView, View)
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
@@ -32,3 +33,18 @@ class ClaimUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ClaimForm
     success_url = reverse_lazy('claims:claim_list')
     model = Claim
+
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(
+            user=self.request.user
+        )
+
+class ClaimCreateView(LoginRequiredMixin, CreateView):
+    form_class = ClaimForm
+    success_url = reverse_lazy('claims:claim_list')
+    model = Claim
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    

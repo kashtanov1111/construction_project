@@ -1,4 +1,6 @@
 import os
+import datetime
+import math
 
 from random import randint
 
@@ -8,7 +10,11 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from django.utils import timezone
 
+def round_down(n, decimals=0):
+    multiplier = 10 ** decimals
+    return math.floor(n * multiplier) / multiplier
 
 class Claim(models.Model):
     title = models.CharField(max_length=100)
@@ -26,6 +32,10 @@ class Claim(models.Model):
     # def get_absolute_url(self):
     #     return reverse('claim:startup_detail', 
     #                     kwargs={'slug': self.slug})
+
+    def claim_ends(self):
+        delta = self.deadline - timezone.now()
+        return delta
 
     def get_delete_url(self):
         return reverse('claims:claim_delete', 

@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'storages',
     'datetimewidget',
+    'bootstrap_datepicker_plus',
+    'tz_detect',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'tz_detect.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -126,12 +129,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -227,13 +231,4 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 # email settings
-if env('EMAIL_BACKEND', default=True):
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-relay.sendinblue.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = '1kashtanov1111@gmail.com'
-EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
-DEFAULT_FROM_EMAIL = '1wostart@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

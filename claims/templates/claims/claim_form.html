@@ -1,21 +1,30 @@
 {% extends 'claims/base_claims.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
-{{ block.super }} - Редактировать
+{{ block.super }} - {% if request.path == claim_create_url %}Создать{% else %}Редактировать{% endif %}
 {% endblock title %}
 
 {% block content %}
     <div class='container'>
         <div class='col-md-6 mx-auto'>
-            <h1>Редактировать заявку</h1>
+            <h1>{% if request.path == claim_create_url %}Создать{% else %}Редактировать{% endif %} заявку</h1>
             <form action="" enctype="multipart/form-data" method='post'>
                 {% csrf_token %}
                 {{ form|crispy }}
+                {% comment %} {{ form.media }} {% endcomment %}
+                <div style='line-height:0px' class='row'>
+                    <div class='col-12 my-1 mx-auto'>
+                        <img id='target' src="{% if object.image %}{{ object.image.url }}{% endif %}" 
+                            width='300px' alt=''>
+                    </div>
+                </div>
                 <button class='mybtn btn btn-success my-2' 
                         type='submit'>Сохранить    
                 </button>
             </form>
         </div>
     </div>
+<script src="{% static 'js/update_claim.js' %}"></script>
 {% endblock content %}

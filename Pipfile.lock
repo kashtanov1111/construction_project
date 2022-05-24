@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "672040bc4df3c0f14ca6f52135dba4e4a16f244f896fd9da641a8f11cee58a63"
+            "sha256": "5c55cea1fe43bd7ead313643acb0d42215d5f16dadbbe4fc3185774ebeb7e8b6"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -34,11 +34,11 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:32541873924e3ff0ad95f02dc331e9f278721a3b864a4e2a8d514346b2598ce5",
-                "sha256:805db3ecf85ff89edfb6788f862b87426f990e3e6383ef3fca3076f7659a5454"
+                "sha256:2846ee4a548462ba6db70125bea1542b4ed39793240aabc62ddf96fb6ec7e4d1",
+                "sha256:ce3fb008ffb041d142cf3949b13529e8dc9a0db5f2ec0e86b159f10f2b56a46e"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==1.26.5"
+            "version": "==1.26.6"
         },
         "certifi": {
             "hashes": [
@@ -175,6 +175,14 @@
             "index": "pypi",
             "version": "==0.50.0"
         },
+        "django-bootstrap-datepicker-plus": {
+            "hashes": [
+                "sha256:2ce1eb7d0d45ac01fcef6fc5e9823b01e0727088b781b16c1be642bf76514ada",
+                "sha256:c5dce41585c2b57cda52e3f698f44544090ccf2eed1d1c5bb9e828f36951b3fc"
+            ],
+            "index": "pypi",
+            "version": "==4.0.0"
+        },
         "django-cache-url": {
             "hashes": [
                 "sha256:4559398a946ff24c4ee96e32c55e3b760bd69f7c2ba48844cdf8fcb4f76d10bd",
@@ -212,6 +220,14 @@
             ],
             "index": "pypi",
             "version": "==1.12.3"
+        },
+        "django-tz-detect": {
+            "hashes": [
+                "sha256:ca3842b9d92ed3aff3c783430d79fd66785c722ca942fabeaf5f9008f35c8124",
+                "sha256:ff3ceb2062a2dffaf7d5c20216761c7c4fbbee894c14906bdc93ec6e03e10ffa"
+            ],
+            "index": "pypi",
+            "version": "==0.4.0"
         },
         "environs": {
             "extras": [
