@@ -1,5 +1,7 @@
 import math
 
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -21,14 +23,18 @@ from config.utils import PageLinksMixin
 class ClaimListView(PageLinksMixin, ListView):
     paginate_by = 10
     context_object_name = 'claim_list'
-    queryset = Claim.objects.filter(deadline__gt=timezone.now()).order_by('created')
-    ordering = '-created'
+    model = Claim
+
+    def get_queryset(self):
+        return self.model.objects.filter(deadline__gt=timezone.now()).select_related('user').order_by('-created')
 
 class ClaimExpiredListView(PageLinksMixin, ListView):
     paginate_by = 10
     context_object_name = 'claim_list'
-    queryset = Claim.objects.filter(deadline__lt=timezone.now()).order_by('created')
-    ordering = '-created'
+    model = Claim
+    
+    def get_queryset(self):
+        return self.model.objects.filter(deadline__lt=timezone.now()).select_related('user').order_by('-created')
 
 class ClaimDeleteView(LoginRequiredMixin, DeleteView):
     queryset = Claim.objects.all()
@@ -73,8 +79,12 @@ class ClaimDetailView(View):
                             .select_related('user')
                             .get(slug=self.kwargs['slug']))
             claim_offers = claim_obj.offers.order_by('price')
-            best_offer_price = claim_offers.first().price
-            best_offer_unit_price = round(best_offer_price / claim_obj.ammount, 3)
+            if claim_offers:
+                best_offer_price = claim_offers.first().price
+                best_offer_unit_price = round(best_offer_price / claim_obj.ammount, 3)
+            else:
+                best_offer_price = None
+                best_offer_unit_price = None
         except ObjectDoesNotExist:
             raise Http404()
         return render(request, self.template_name,

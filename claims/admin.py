@@ -9,6 +9,7 @@ class OfferInline(admin.StackedInline):
 
 class ClaimAdmin(admin.ModelAdmin):
     model = Claim
+    list_display = ['title', 'claim_ends']
     inlines = [OfferInline,]
 
 admin.site.register(Claim, ClaimAdmin)

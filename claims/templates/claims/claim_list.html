@@ -10,7 +10,7 @@
     <div class='container'>
         <div class='row'>
             <div class='col'>
-                <h1 class='mb-0'>{% if request.path == claim_expired_list_url %}Истекшие Заявки{% else %}Заявки{% endif %}</h1>
+                <h1>{% if request.path == claim_expired_list_url %}Истекшие Заявки{% else %}Заявки{% endif %}</h1>
             </div>
             {% if user.is_authenticated %}
             <div class='col-auto'>
@@ -24,24 +24,10 @@
                 <a style='color:#212529' 
                     href="{{ claim.get_absolute_url }}">
                 <div class='card'>
-                    <div class="card-body">
+                    <div class='card-header'>
                         <div class='row justify-content-between'>
                             <div class='col-md'>
-                                <h5 class="card-title">
-                                    {{ claim.title }}
-                                </h5>
-                                <h6  class="card-subtitle mb-2 text-muted">
-                                    Создано: {{ claim.created|date:'j/m/Y H:i' }}
-                                </h6>
-                                <h6 class="card-subtitle mb-2">
-                                    Истекает: {{ claim.deadline|date:'j/m/Y H:i' }}
-                                </h6>
-                                <h6 class="card-subtitle mb-2">
-                                    Осталось: {{ claim.claim_ends|smooth_timedelta }}
-                                </h6>
-                                <h6 class="card-subtitle mb-2">
-                                    Количество: {{ claim.ammount}}
-                                </h6>
+                                <h5>{{ claim.title }}</h5>
                             </div>
                             {% if user == claim.user %}
                             <div class='col-md-auto my-md-0 my-2'>
@@ -60,6 +46,31 @@
                             </div>
                             {% endif %}
                         </div>
+                    </div>
+                    <div class="card-body">
+                        <div class='row justify-content-between'>
+                            <div class='col-md'>
+                                <h6  class="card-subtitle mb-2 text-muted">
+                                    Создана: {{ claim.created|date:'j/m/Y H:i' }}
+                                </h6>
+                                <h6 class="card-text mb-2">
+                                    Истек{% if request.path == claim_expired_list_url %}ла{% else %}ает{% endif %}: {{ claim.deadline|date:'j/m/Y H:i' }}
+                                </h6>
+                                {% if claim.claim_ends %}
+                                    <h6 class="card-text mb-2">
+                                        Осталось: {{ claim.claim_ends|smooth_timedelta }}
+                                    </h6>
+                                {% endif %}
+                                <h6 class="card-text mb-2">
+                                    {{ claim.comment|truncatewords:50 }}
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='card-footer'>
+                        <h6 class="card-text mb-2">
+                            Количество: {{ claim.ammount}}
+                        </h6>
                     </div>
                 </div>
                 </a>

@@ -1,5 +1,5 @@
 <div class="row row-cols-1 g-2">
-    {% if claim.offers %}
+    {% if claim_offers %}
     {% for offer in claim_offers %}
     <div class="col-12">
         <a style='color:#212529' 
@@ -37,5 +37,9 @@
         </a>
     </div>
     {% endfor %}
+    {% else %}
+    <div class='col-12'>
+        <p class='text-center'>Предложений по данной заявке пока не поступало. Пожалуйста ожидайте.</p>
+    </div>
     {% endif %}
 </div>

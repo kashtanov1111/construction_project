@@ -35,6 +35,10 @@ class Claim(models.Model):
 
     def claim_ends(self):
         delta = self.deadline - timezone.now()
+        if delta > datetime.timedelta(seconds=1):
+            delta = delta
+        else:
+            delta = None
         return delta
 
     def get_delete_url(self):

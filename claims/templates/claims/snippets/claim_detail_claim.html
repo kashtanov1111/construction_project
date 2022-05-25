@@ -17,18 +17,20 @@
               </div>
               </div class='col-md col-12'>
                 <h6 class="card-subtitle mb-2 text-muted">
-                  Создано: {{ claim.created|date:'j/m/Y H:i' }}
+                  Создана: {{ claim.created|date:'j/m/Y H:i' }}
                 </h6>
-                <h6 class="card-subtitle mb-2">
-                  Заявитель: {{ claim.user.username }}
+                <h6 class="card-text mb-2">
+                  Заявитель: {{ claim.user.first_name }} {{ claim.user.last_name }}
                 </h6>
-                <h6 class="card-subtitle mb-2">
-                  Истекает: {{ claim.deadline|date:'j/m/Y H:i' }}
+                <h6 class="card-text mb-2">
+                  Истек{% if not claim.claim_ends %}ла{% else %}ает{% endif %}: {{ claim.deadline|date:'j/m/Y H:i' }}
                 </h6>
-                <h6 class="card-subtitle mb-2">
+                {% if claim.claim_ends %}
+                <h6 class="card-text mb-2">
                   Осталось: {{ claim.claim_ends|smooth_timedelta }}
                 </h6>
-                <h6 class="card-subtitle mb-2">
+                {% endif %}
+                <h6 class="card-text mb-2">
                   Количество: {{ claim.ammount}}
                 </h6>
                 {% if claim.comment %}
@@ -36,12 +38,14 @@
                   {{ claim.comment|linebreaks }}
                 </p>
                 {% endif %}
+                {% if best_offer_price and best_offer_unit_price %}
                 <h6 class="card-subtitle mb-2">
                   Лучшая Цена: {{ best_offer_price }} руб.
                 </h6>
                 <h6 class="card-subtitle mb-2">
                   Цена за единицу: {{ best_offer_unit_price }} руб.
                 </h6>
+                {% endif %}
               </div>
           </div>
         </div>
