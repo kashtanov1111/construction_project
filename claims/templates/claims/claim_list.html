@@ -3,14 +3,14 @@
 {% load smooth_timedelta %}
 
 {% block title %}
-{{ block.super }} - Заявки
+{{ block.super }} - {% if request.path == claim_expired_list_url %}Истекшие Заявки{% else %}Заявки{% endif %}
 {% endblock title %}
 
 {% block content %}
     <div class='container'>
         <div class='row'>
             <div class='col'>
-                <h1>{% if request.path == claim_expired_list_url %}Истекшие Заявки{% else %}Заявки{% endif %}</h1>
+                <h1 {% if not user.is_authenticated %}class='text-center'{% endif %}>{% if request.path == claim_expired_list_url %}Истекшие Заявки{% else %}Заявки{% endif %}</h1>
             </div>
             {% if user.is_authenticated %}
             <div class='col-auto'>

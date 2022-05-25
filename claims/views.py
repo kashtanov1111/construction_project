@@ -52,7 +52,6 @@ class ClaimDeleteView(LoginRequiredMixin, DeleteView):
 
 class ClaimUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ClaimForm
-    success_url = reverse_lazy('claims:claim_list')
     model = Claim
 
     def get_queryset(self, *args, **kwargs):
@@ -62,7 +61,6 @@ class ClaimUpdateView(LoginRequiredMixin, UpdateView):
 
 class ClaimCreateView(LoginRequiredMixin, CreateView):
     form_class = ClaimForm
-    success_url = reverse_lazy('claims:claim_list')
     model = Claim
 
     def form_valid(self, form):
