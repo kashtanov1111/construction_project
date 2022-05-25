@@ -1,0 +1,50 @@
+{% load smooth_timedelta %}
+
+<div class="card">
+    <div class="card-body">
+      <div class='row'>
+        <div class='col-md-auto'>
+            {% if claim.image %}
+            <img width='200px' 
+              src="{{claim.image.url}}">
+            {% endif %}
+        </div>
+        <div class='col-md col-12'>
+          <div class='row'>
+              <div class='col-md col-12'>
+                <h2 class="card-title">{{ claim.title }} 
+                </h2>
+              </div>
+              </div class='col-md col-12'>
+                <h6 class="card-subtitle mb-2 text-muted">
+                  Создано: {{ claim.created|date:'j/m/Y H:i' }}
+                </h6>
+                <h6 class="card-subtitle mb-2">
+                  Заявитель: {{ claim.user.username }}
+                </h6>
+                <h6 class="card-subtitle mb-2">
+                  Истекает: {{ claim.deadline|date:'j/m/Y H:i' }}
+                </h6>
+                <h6 class="card-subtitle mb-2">
+                  Осталось: {{ claim.claim_ends|smooth_timedelta }}
+                </h6>
+                <h6 class="card-subtitle mb-2">
+                  Количество: {{ claim.ammount}}
+                </h6>
+                {% if claim.comment %}
+                <p class="card-text">
+                  {{ claim.comment|linebreaks }}
+                </p>
+                {% endif %}
+                <h6 class="card-subtitle mb-2">
+                  Лучшая Цена: {{ best_offer_price }} руб.
+                </h6>
+                <h6 class="card-subtitle mb-2">
+                  Цена за единицу: {{ best_offer_unit_price }} руб.
+                </h6>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

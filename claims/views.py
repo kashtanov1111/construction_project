@@ -1,8 +1,17 @@
+import math
+
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse, Http404, HttpResponseRedirect
 from django.views.generic import (
     ListView, DeleteView, UpdateView, CreateView, View)
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
+from django.utils import timezone
+
+from offers.models import Offer
+from offers.forms import OfferForm
 
 from .models import Claim
 from .forms import ClaimForm
@@ -12,7 +21,13 @@ from config.utils import PageLinksMixin
 class ClaimListView(PageLinksMixin, ListView):
     paginate_by = 10
     context_object_name = 'claim_list'
-    queryset = Claim.objects.all()
+    queryset = Claim.objects.filter(deadline__gt=timezone.now()).order_by('created')
+    ordering = '-created'
+
+class ClaimExpiredListView(PageLinksMixin, ListView):
+    paginate_by = 10
+    context_object_name = 'claim_list'
+    queryset = Claim.objects.filter(deadline__lt=timezone.now()).order_by('created')
     ordering = '-created'
 
 class ClaimDeleteView(LoginRequiredMixin, DeleteView):
@@ -48,3 +63,34 @@ class ClaimCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
+class ClaimDetailView(View):
+    template_name = 'claims/claim_detail.html'
+    model = Claim
+    form = OfferForm
+    def get(self, request, **kwargs):
+        try:
+            claim_obj = (self.model.objects
+                            .select_related('user')
+                            .get(slug=self.kwargs['slug']))
+            claim_offers = claim_obj.offers.order_by('price')
+            best_offer_price = claim_offers.first().price
+            best_offer_unit_price = round(best_offer_price / claim_obj.ammount, 3)
+        except ObjectDoesNotExist:
+            raise Http404()
+        return render(request, self.template_name,
+            {'claim': claim_obj, 'claim_offers': claim_offers,
+            'form': self.form, 'best_offer_price': best_offer_price,
+            'best_offer_unit_price': best_offer_unit_price})
+
+    def post(self, request, **kwargs):
+        claim_obj = self.model.objects.get(slug=self.kwargs['slug'])
+        bound_form = self.form(request.POST or None)
+        if bound_form.is_valid():
+            bound_form = bound_form.save(commit=False)
+            bound_form.claim = claim_obj
+            bound_form.save()
+            messages.add_message(request, messages.INFO, 'Ваше предложение принято. Спасибо!')
+            return HttpResponseRedirect(reverse('claims:claim_detail', kwargs={'slug': self.kwargs['slug']}))
+        else:
+            return render(request, self.template_name,
+                {'form': bound_form})

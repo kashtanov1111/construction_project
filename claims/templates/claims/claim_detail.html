@@ -1,0 +1,25 @@
+{% extends 'claims/base_claims.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ block.super }} - {{ claim.title }}
+{% endblock title %}
+
+{% block content %}
+    <div class='container'>
+      <h1 class='text-center'>Заявка</h1>
+      {% include 'claims/snippets/claim_detail_claim.html' %}
+    </div>
+    {% if user == claim.user %}
+      <div class='container'>
+        <h1 class='text-center'>Предложения</h1>
+        {% include 'claims/snippets/claim_detail_offer.html' %}
+      </div>
+    {% else %}
+      <div class='container'>
+        <h1 class='text-center'>Предложить цену</h1>
+        {% include 'claims/snippets/claim_detail_offer_form.html' %}
+      </div>
+    {% endif %}
+{% endblock content %}

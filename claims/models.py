@@ -29,9 +29,9 @@ class Claim(models.Model):
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     return reverse('claim:startup_detail', 
-    #                     kwargs={'slug': self.slug})
+    def get_absolute_url(self):
+        return reverse('claims:claim_detail', 
+                        kwargs={'slug': self.slug})
 
     def claim_ends(self):
         delta = self.deadline - timezone.now()

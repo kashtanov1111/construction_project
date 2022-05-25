@@ -2,7 +2,7 @@
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark py-0">
 <div class="container">
-<a class="navbar-brand" href="{% url 'home' %}">
+<a class="navbar-brand py-2" href="{% url 'home' %}">
     Аукцион Закупок
 </a>
 <button class="navbar-toggler" type="button"
@@ -18,42 +18,9 @@
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
             <a class="nav-link 
-            {% if request.path == about_url %}active{% endif %}"
-            aria-current="page" href="">
-                About
-            </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle 
-                {% if request.path == ad_list_url or request.path == user_ads_url or request.path == ad_create_url or request.path == ads_i_responded_url %}
-                active
-                {% endif %}" 
-                href="#" id="navbarDropdownStartups" role="button" 
-                data-bs-toggle="dropdown" 
-                aria-expanded="false">
-                Ads
-            </a>
-            <ul class="dropdown-menu" 
-                aria-labelledby="navbarDropdownStartups">
-                <li>
-                    <a class="dropdown-item
-                        {% if request.path == ad_list_url %}
-                        active
-                        {% endif %}" 
-                        href="">
-                        Ads
-                    </a>
-                </li>
-            </ul>
-        </li>
-        
-        <li class="nav-item">
-            <a class="nav-link 
-            {% if request.path == contact_form_url %}
-            active
-            {% endif %}"
-            aria-current="page" href="{{ contact_form_url }}">
-                Contact
+            {% if request.path == claim_expired_list_url %}active{% endif %}"
+            aria-current="page" href="{{ claim_expired_list_url }}">
+                Истекшие заявки
             </a>
         </li>
     </ul>

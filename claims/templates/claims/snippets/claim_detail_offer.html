@@ -1,0 +1,41 @@
+<div class="row row-cols-1 g-2">
+    {% if claim.offers %}
+    {% for offer in claim_offers %}
+    <div class="col-12">
+        <a style='color:#212529' 
+            href="">
+        <div class='card'>
+            <div class="card-body">
+                <div class='row justify-content-between'>
+                    <div class='col-md'>
+                        <h5 class="card-title">
+                            {{ offer.price }} руб.
+                        </h5>
+                        <h6  class="card-subtitle mb-2 text-muted">
+                            Создано: {{ offer.created }}
+                        </h6>
+                        <h6  class="card-subtitle mb-2">
+                            Имя: {{ offer.name }}
+                        </h6>
+                        <h6 class="card-subtitle mb-2">
+                          Телефон: {{ offer.phone_number }}
+                        </h6>
+                        {% if offer.email %}
+                        <h6 class="card-subtitle mb-2">
+                          Email: {{ offer.email }}
+                        </h6>
+                        {% endif %}
+                        {% if offer.comment %}
+                        <p class="card-text">
+                          {{ offer.comment|truncatewords:50 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>

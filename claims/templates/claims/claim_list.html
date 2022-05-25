@@ -8,12 +8,21 @@
 
 {% block content %}
     <div class='container'>
-        <h1 class='text-center'>Заявки</h1>
+        <div class='row'>
+            <div class='col'>
+                <h1 class='mb-0'>{% if request.path == claim_expired_list_url %}Истекшие Заявки{% else %}Заявки{% endif %}</h1>
+            </div>
+            {% if user.is_authenticated %}
+            <div class='col-auto'>
+                <a type="button" href="{{ claim_create_url }}" class="btn btn-success my-1">Создать Заявку</a>
+            </div>
+            {% endif %}
+        </div>
         <div class="row row-cols-1 g-2">
             {% for claim in claim_list %}
             <div class="col-12">
                 <a style='color:#212529' 
-                    href="">
+                    href="{{ claim.get_absolute_url }}">
                 <div class='card'>
                     <div class="card-body">
                         <div class='row justify-content-between'>
@@ -34,6 +43,7 @@
                                     Количество: {{ claim.ammount}}
                                 </h6>
                             </div>
+                            {% if user == claim.user %}
                             <div class='col-md-auto my-md-0 my-2'>
                                 <object  type="owo/uwu">
                                     <a class='btn btn-outline-dark'
@@ -48,6 +58,7 @@
                                     </a>
                                 </object>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
