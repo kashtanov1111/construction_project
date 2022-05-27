@@ -32,7 +32,7 @@ DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
 ALLOWED_HOSTS = [
     '.herokuapp.com', 'localhost', '127.0.0.1',
-    'testserver']
+    'testserver', '.zakupzakup.ru']
 
 
 # Application definition
